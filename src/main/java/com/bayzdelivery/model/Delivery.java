@@ -2,6 +2,7 @@ package com.bayzdelivery.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,11 +10,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
+/**
+ * Represents a delivery transaction in the BayzDelivery system.
+ * Links a delivery man to a customer for a specific order,
+ * recording distance, timing, price, and earned commission.
+ *
+ * @author Omar Ismail
+ */
 @Entity
 @Table(name = "delivery")
 public class Delivery implements Serializable {
@@ -22,32 +32,40 @@ public class Delivery implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
-    @Column(name = "start_time")
-    Instant startTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_man_id", nullable = false)
+    private Person deliveryMan;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Person customer;
+
+    @NotNull
+    @Column(name = "start_time", nullable = false)
+    private LocalDateTime startTime;
+
     @Column(name = "end_time")
-    Instant endTime;
+    private LocalDateTime endTime;
 
-    @Column(name = "distance", precision = 10, scale = 2)
-    BigDecimal distance;
+    @NotNull
+    @Positive
+    @Column(name = "distance", nullable = false, precision = 10, scale = 2)
+    private BigDecimal distance;
 
-    @Column(name = "price", precision = 10, scale = 2)
-    BigDecimal price;
+    @NotNull
+    @Positive
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     @Column(name = "commission", precision = 10, scale = 2)
-    BigDecimal commission;
+    private BigDecimal commission;
 
-    @ManyToOne
-    @JoinColumn(name = "delivery_man_id", referencedColumnName = "id")
-    Person deliveryMan;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    Person customer;
+    public Delivery() {
+    }
 
     public Long getId() {
         return id;
@@ -57,19 +75,35 @@ public class Delivery implements Serializable {
         this.id = id;
     }
 
-    public Instant getStartTime() {
+    public Person getDeliveryMan() {
+        return deliveryMan;
+    }
+
+    public void setDeliveryMan(Person deliveryMan) {
+        this.deliveryMan = deliveryMan;
+    }
+
+    public Person getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Person customer) {
+        this.customer = customer;
+    }
+
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Instant startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Instant getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Instant endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -97,32 +131,20 @@ public class Delivery implements Serializable {
         this.commission = commission;
     }
 
-    public Person getDeliveryMan() {
-        return deliveryMan;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Delivery delivery)) return false;
+        return Objects.equals(id, delivery.id);
     }
 
-    public void setDeliveryMan(Person deliveryMan) {
-        this.deliveryMan = deliveryMan;
-    }
-
-    public Person getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Person customer) {
-        this.customer = customer;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Delivery [id=" + id
-                + ", startTime=" + startTime
-                + ", endTime=" + endTime
-                + ", distance=" + distance
-                + ", price=" + price
-                + ", commission=" + commission
-                + ", deliveryMan=" + deliveryMan
-                + ", customer=" + customer
-                + "]";
+        return "Delivery{id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + "}";
     }
 }
