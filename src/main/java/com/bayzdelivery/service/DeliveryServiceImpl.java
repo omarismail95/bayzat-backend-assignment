@@ -1,18 +1,21 @@
 package com.bayzdelivery.service;
 
-import com.bayzdelivery.model.Delivery;
-import com.bayzdelivery.repositories.DeliveryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.bayzdelivery.model.Delivery;
+import com.bayzdelivery.repositories.DeliveryRepository;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
-    @Autowired
-    private DeliveryRepository deliveryRepository;
+    private final DeliveryRepository deliveryRepository;
+
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
+        this.deliveryRepository = deliveryRepository;
+    }
 
     @Override
     public Delivery save(Delivery delivery) {

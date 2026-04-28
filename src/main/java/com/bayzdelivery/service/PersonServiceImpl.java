@@ -1,19 +1,21 @@
 package com.bayzdelivery.service;
 
+import com.bayzdelivery.model.Person;
+import com.bayzdelivery.repositories.PersonRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bayzdelivery.repositories.PersonRepository;
-import com.bayzdelivery.model.Person;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public List<Person> getAll() {
@@ -22,6 +24,7 @@ public class PersonServiceImpl implements PersonService {
         return personList;
     }
 
+    @Override
     public Person save(Person p) {
         return personRepository.save(p);
     }
