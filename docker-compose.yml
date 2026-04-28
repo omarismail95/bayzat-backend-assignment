@@ -1,25 +1,43 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  postgres:
+  db:
+    image: postgres:15-alpine
     container_name: bayzdelivery_db
-    image: postgres
-    restart: unless-stopped
-    volumes:
-      - postgres:/data/postgres
+    environment:
+      POSTGRES_DB: bayzdelivery
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: 123qwe
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-db_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123qwe}
-      POSTGRES_DB: ${POSTGRES_DB:-bayzdelivery}
-      PGDATA: /data/postgres/bayztracker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
-      - postgres
+      - bayzdelivery_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U db_user -d bayzdelivery"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-networks:
-  postgres:
-    driver: bridge
+  app:
+    build: .
+    container_name: bayzdelivery_app
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/bayzdelivery
+      DB_USERNAME: db_user
+      DB_PASSWORD: 123qwe
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - bayzdelivery_network
 
 volumes:
-  postgres:
+  postgres_data:
+
+networks:
+  bayzdelivery_network:
+    driver: bridge
