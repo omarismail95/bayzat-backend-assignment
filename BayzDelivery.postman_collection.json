@@ -1,0 +1,91 @@
+{
+  "info": {
+    "name": "BayzDelivery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081/api" }
+  ],
+  "item": [
+    {
+      "name": "Persons",
+      "item": [
+        {
+          "name": "Register Customer",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/persons",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Johnson\",\n  \"email\": \"alice@example.com\",\n  \"role\": \"CUSTOMER\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Delivery Man",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/persons",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bob Smith\",\n  \"email\": \"bob@example.com\",\n  \"registrationNumber\": \"REG-001\",\n  \"role\": \"DELIVERY_MAN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Persons",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/persons"
+          }
+        },
+        {
+          "name": "Get Person By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/persons/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deliveries",
+      "item": [
+        {
+          "name": "Create Delivery",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/deliveries",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryManId\": 2,\n  \"customerId\": 1,\n  \"startTime\": \"2024-01-15T10:00:00\",\n  \"endTime\": \"2024-01-15T10:30:00\",\n  \"distance\": 5.5,\n  \"price\": 150.00\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Delivery By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/deliveries/1"
+          }
+        },
+        {
+          "name": "Top 3 Delivery Men",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/deliveries/top-performers?startTime=2024-01-01T00:00:00&endTime=2024-12-31T23:59:59",
+              "query": [
+                { "key": "startTime", "value": "2024-01-01T00:00:00" },
+                { "key": "endTime", "value": "2024-12-31T23:59:59" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

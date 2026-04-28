@@ -1,0 +1,17 @@
+2026-04-28 23:23:59.269 [Test worker] INFO  com.bayzdelivery.controller.DeliveryControllerTest [] - Starting DeliveryControllerTest using Java 17.0.2 with PID 18320 (started by ROG STRIX in C:\Users\ROG STRIX\Downloads\backend-assignment)
+2026-04-28 23:23:59.270 [Test worker] DEBUG com.bayzdelivery.controller.DeliveryControllerTest [] - Running with Spring Boot v3.2.2, Spring v6.1.3
+2026-04-28 23:23:59.271 [Test worker] INFO  com.bayzdelivery.controller.DeliveryControllerTest [] - No active profile set, falling back to 1 default profile: "default"
+2026-04-28 23:24:03.563 [Test worker] INFO  o.s.boot.test.mock.web.SpringBootMockServletContext [] - Initializing Spring TestDispatcherServlet ''
+2026-04-28 23:24:03.565 [Test worker] INFO  org.springframework.test.web.servlet.TestDispatcherServlet [] - Initializing Servlet ''
+2026-04-28 23:24:03.568 [Test worker] INFO  org.springframework.test.web.servlet.TestDispatcherServlet [] - Completed initialization in 2 ms
+2026-04-28 23:24:03.626 [Test worker] INFO  com.bayzdelivery.controller.DeliveryControllerTest [] - Started DeliveryControllerTest in 4.736 seconds (process running for 6.311)
+2026-04-28 23:24:03.805 [Test worker] WARN  com.bayzdelivery.exceptions.GlobalExceptionHandler [] - Validation failed: 6 field errors
+2026-04-28 23:24:03.846 [Test worker] WARN  com.bayzdelivery.exceptions.GlobalExceptionHandler [] - Bad request: startTime must be before endTime
+2026-04-28 23:25:04.250 [Test worker] INFO  com.bayzdelivery.controller.PersonControllerTest [] - Starting PersonControllerTest using Java 17.0.2 with PID 65372 (started by ROG STRIX in C:\Users\ROG STRIX\Downloads\backend-assignment)
+2026-04-28 23:25:04.252 [Test worker] DEBUG com.bayzdelivery.controller.PersonControllerTest [] - Running with Spring Boot v3.2.2, Spring v6.1.3
+2026-04-28 23:25:04.253 [Test worker] INFO  com.bayzdelivery.controller.PersonControllerTest [] - No active profile set, falling back to 1 default profile: "default"
+2026-04-28 23:25:06.906 [Test worker] INFO  o.s.boot.test.mock.web.SpringBootMockServletContext [] - Initializing Spring TestDispatcherServlet ''
+2026-04-28 23:25:06.907 [Test worker] INFO  org.springframework.test.web.servlet.TestDispatcherServlet [] - Initializing Servlet ''
+2026-04-28 23:25:06.909 [Test worker] INFO  org.springframework.test.web.servlet.TestDispatcherServlet [] - Completed initialization in 1 ms
+2026-04-28 23:25:06.959 [Test worker] INFO  com.bayzdelivery.controller.PersonControllerTest [] - Started PersonControllerTest in 3.099 seconds (process running for 4.304)
+2026-04-28 23:25:07.157 [Test worker] WARN  com.bayzdelivery.exceptions.GlobalExceptionHandler [] - Validation failed: 3 field errors
