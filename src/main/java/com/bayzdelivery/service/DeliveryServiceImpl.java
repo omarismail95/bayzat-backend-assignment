@@ -1,12 +1,11 @@
 package com.bayzdelivery.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.bayzdelivery.exceptions.ResourceNotFoundException;
 import com.bayzdelivery.model.Delivery;
 import com.bayzdelivery.repositories.DeliveryRepository;
-
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
@@ -47,7 +46,9 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery findById(Long deliveryId) {
-        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
-        return optionalDelivery.orElse(null);
+        return deliveryRepository.findById(deliveryId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Delivery not found with id: " + deliveryId)
+                );
     }
 }

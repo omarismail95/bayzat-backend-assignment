@@ -1,12 +1,12 @@
 package com.bayzdelivery.service;
 
+import com.bayzdelivery.exceptions.ResourceNotFoundException;
 import com.bayzdelivery.model.Person;
 import com.bayzdelivery.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -31,7 +31,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(Long personId) {
-        Optional<Person> dbPerson = personRepository.findById(personId);
-        return dbPerson.orElse(null);
+        return personRepository.findById(personId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Person not found with id: " + personId)
+                );
     }
 }
