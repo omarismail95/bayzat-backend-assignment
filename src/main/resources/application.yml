@@ -38,3 +38,6 @@ logging:
   level:
     com.bayzdelivery: DEBUG
     org.hibernate.SQL: WARN
+app:
+  scheduler:
+    delay-check-ms: 180000  # 3 minutes
