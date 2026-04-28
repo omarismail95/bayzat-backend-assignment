@@ -1,18 +1,40 @@
 spring:
+  application:
+    name: bayz-delivery
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/bayzdelivery
-    username: db_user
-    password: 123qwe
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/bayzdelivery}
+    username: ${DB_USERNAME:db_user}
+    password: ${DB_PASSWORD:123qwe}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     open-in-view: false
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_batch_fetch_size: 20
+
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
 
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
   servlet:
     context-path: /api
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+logging:
+  level:
+    com.bayzdelivery: DEBUG
+    org.hibernate.SQL: WARN
