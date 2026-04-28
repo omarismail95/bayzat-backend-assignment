@@ -1,11 +1,22 @@
 package com.bayzdelivery.repositories;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RestResource;
 import com.bayzdelivery.model.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@RestResource(exported=false)
-public interface PersonRepository extends CrudRepository<Person, Long>, PagingAndSortingRepository<Person, Long> {
+import java.util.Optional;
 
+/**
+ * Repository for Person entity persistence operations.
+ *
+ * @author Omar Ismail
+ */
+@Repository
+public interface PersonRepository extends JpaRepository<Person, Long> {
+
+    Optional<Person> findByEmail(String email);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
 }
