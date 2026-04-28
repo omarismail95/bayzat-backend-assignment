@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
@@ -31,14 +32,14 @@ public class Delivery implements Serializable {
     @Column(name = "end_time")
     Instant endTime;
 
-    @Column(name = "distance")
-    Long distance;
+    @Column(name = "distance", precision = 19, scale = 2)
+    BigDecimal distance;
 
-    @Column(name = "price")
-    Long price;
+    @Column(name = "price", precision = 19, scale = 2)
+    BigDecimal price;
 
-    @Column(name = "commission")
-    Long commission;
+    @Column(name = "commission", precision = 19, scale = 2)
+    BigDecimal commission;
 
     @ManyToOne
     @JoinColumn(name = "delivery_man_id", referencedColumnName = "id")
@@ -72,31 +73,28 @@ public class Delivery implements Serializable {
         this.endTime = endTime;
     }
 
-    public Long getDistance() {
+    public BigDecimal getDistance() {
         return distance;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(BigDecimal distance) {
         this.distance = distance;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    @Column(name = "comission")
-    Long comission;
-
-    public Long getComission() {
-        return comission;
+    public BigDecimal getCommission() {
+        return commission;
     }
 
-    public void setComission(Long comission) {
-        this.comission = comission;
+    public void setCommission(BigDecimal commission) {
+        this.commission = commission;
     }
 
     public Person getDeliveryMan() {
@@ -115,66 +113,16 @@ public class Delivery implements Serializable {
         this.customer = customer;
     }
 
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((distance == null) ? 0 : distance.hashCode());
-        result = prime * result + ((deliveryMan == null) ? 0 : deliveryMan.hashCode());
-        result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-        result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Delivery other = (Delivery) obj;
-        if (distance == null) {
-            if (other.distance != null)
-                return false;
-        } else if (!distance.equals(other.distance))
-            return false;
-        if (deliveryMan == null) {
-            if (other.deliveryMan != null)
-                return false;
-        } else if (!deliveryMan.equals(other.deliveryMan))
-            return false;
-        if (endTime == null) {
-            if (other.endTime != null)
-                return false;
-        } else if (!endTime.equals(other.endTime))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (customer == null) {
-            if (other.customer != null)
-                return false;
-        } else if (!customer.equals(other.customer))
-            return false;
-        if (startTime == null) {
-            if (other.startTime != null)
-                return false;
-        } else if (!startTime.equals(other.startTime))
-            return false;
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "Delivery [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", distance=" + distance + ", deliveryMan=" + deliveryMan + ", customer=" + customer + "]";
+        return "Delivery [id=" + id
+                + ", startTime=" + startTime
+                + ", endTime=" + endTime
+                + ", distance=" + distance
+                + ", price=" + price
+                + ", commission=" + commission
+                + ", deliveryMan=" + deliveryMan
+                + ", customer=" + customer
+                + "]";
     }
-
-
 }

@@ -27,8 +27,9 @@
             <column name="customer_id" type="BIGINT"/>
             <column name="start_time" type="TIMESTAMP"/>
             <column name="end_time" type="TIMESTAMP"/>
-            <column name="distance" type="BIGINT"/>
-            <column name="price" type="BIGINT"/>
+            <column name="distance" type="DECIMAL(19,2)"/>
+            <column name="price" type="DECIMAL(19,2)"/>
+            <column name="commission" type="DECIMAL(19,2)"/>
         </createTable>
 
         <addForeignKeyConstraint
@@ -48,12 +49,6 @@
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
                 referencedTableName="person"/>
-    </changeSet>
-
-    <changeSet author="bayzdelivery" id="2012202002_add_commission_to_delivery">
-        <addColumn tableName="delivery">
-            <column name="commission" type="BIGINT"/>
-        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
