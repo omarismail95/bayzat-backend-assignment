@@ -1,5 +1,14 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog-ext
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
     <changeSet author="bayzdelivery" id="2012202001_create_tables">
         <createTable tableName="person">
             <column autoIncrement="true" name="id" type="BIGINT">
@@ -9,6 +18,7 @@
             <column name="email" type="VARCHAR(255)"/>
             <column name="registration_number" type="VARCHAR(255)"/>
         </createTable>
+
         <createTable tableName="delivery">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="pk_delivery"/>
@@ -20,19 +30,30 @@
             <column name="distance" type="BIGINT"/>
             <column name="price" type="BIGINT"/>
         </createTable>
-         <addForeignKeyConstraint baseColumnNames="delivery_man_id"
-            baseTableName="delivery"
-            constraintName="fk_address_person_delivery_man"
-            onDelete="CASCADE"
-            onUpdate="RESTRICT"
-            referencedColumnNames="id"
-            referencedTableName="person"/>
-          <addForeignKeyConstraint baseColumnNames="customer_id"
-            baseTableName="delivery"
-            constraintName="fk_address_person_customer"
-            onDelete="CASCADE"
-            onUpdate="RESTRICT"
-            referencedColumnNames="id"
-            referencedTableName="person"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="delivery_man_id"
+                baseTableName="delivery"
+                constraintName="fk_address_person_delivery_man"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="person"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="customer_id"
+                baseTableName="delivery"
+                constraintName="fk_address_person_customer"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="person"/>
     </changeSet>
+
+    <changeSet author="bayzdelivery" id="2012202002_add_commission_to_delivery">
+        <addColumn tableName="delivery">
+            <column name="commission" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
