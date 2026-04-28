@@ -27,15 +27,14 @@
             <column name="customer_id" type="BIGINT"/>
             <column name="start_time" type="TIMESTAMP"/>
             <column name="end_time" type="TIMESTAMP"/>
-            <column name="distance" type="DECIMAL(19,2)"/>
-            <column name="price" type="DECIMAL(19,2)"/>
-            <column name="commission" type="DECIMAL(19,2)"/>
+            <column name="distance" type="BIGINT"/>
+            <column name="price" type="BIGINT"/>
         </createTable>
 
         <addForeignKeyConstraint
                 baseColumnNames="delivery_man_id"
                 baseTableName="delivery"
-                constraintName="fk_address_person_delivery_man"
+                constraintName="fk_delivery_delivery_man"
                 onDelete="CASCADE"
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
@@ -44,7 +43,7 @@
         <addForeignKeyConstraint
                 baseColumnNames="customer_id"
                 baseTableName="delivery"
-                constraintName="fk_address_person_customer"
+                constraintName="fk_delivery_customer"
                 onDelete="CASCADE"
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"

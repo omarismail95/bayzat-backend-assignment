@@ -32,13 +32,13 @@ public class Delivery implements Serializable {
     @Column(name = "end_time")
     Instant endTime;
 
-    @Column(name = "distance", precision = 19, scale = 2)
+    @Column(name = "distance", precision = 10, scale = 2)
     BigDecimal distance;
 
-    @Column(name = "price", precision = 19, scale = 2)
+    @Column(name = "price", precision = 10, scale = 2)
     BigDecimal price;
 
-    @Column(name = "commission", precision = 19, scale = 2)
+    @Column(name = "commission", precision = 10, scale = 2)
     BigDecimal commission;
 
     @ManyToOne

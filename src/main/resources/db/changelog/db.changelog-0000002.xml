@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="2024010101_fix_delivery_column_types" author="omar.ismail">
+        <comment>Fix distance and price to DECIMAL, add commission column</comment>
+
+        <modifyDataType
+                tableName="delivery"
+                columnName="distance"
+                newDataType="DECIMAL(10,2)"/>
+
+        <modifyDataType
+                tableName="delivery"
+                columnName="price"
+                newDataType="DECIMAL(10,2)"/>
+
+        <addColumn tableName="delivery">
+            <column name="commission" type="DECIMAL(10,2)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="2024010102_add_indexes_on_delivery_fks" author="omar.ismail">
+        <comment>Add indexes on delivery foreign keys</comment>
+
+        <createIndex indexName="idx_delivery_delivery_man_id" tableName="delivery">
+            <column name="delivery_man_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_delivery_customer_id" tableName="delivery">
+            <column name="customer_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_delivery_start_time" tableName="delivery">
+            <column name="start_time"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="2024010103_add_person_role_column" author="omar.ismail">
+        <comment>Add role column to distinguish delivery men from customers</comment>
+
+        <addColumn tableName="person">
+            <column name="role" type="VARCHAR(20)" defaultValue="CUSTOMER">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
