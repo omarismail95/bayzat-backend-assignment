@@ -114,8 +114,8 @@ public class DeliveryServiceImpl implements DeliveryService {
                     TopDeliveryManResponse dto = new TopDeliveryManResponse();
                     dto.setDeliveryManId((Long) row[0]);
                     dto.setDeliveryManName((String) row[1]);
-                    dto.setTotalCommission(((BigDecimal) row[2]).setScale(2, RoundingMode.HALF_UP));
-                    dto.setAverageCommission(((BigDecimal) row[3]).setScale(2, RoundingMode.HALF_UP));
+                    dto.setTotalCommission(new BigDecimal(row[2].toString()).setScale(2, RoundingMode.HALF_UP));
+                    dto.setAverageCommission(new BigDecimal(row[3].toString()).setScale(2, RoundingMode.HALF_UP));
                     return dto;
                 })
                 .toList();
